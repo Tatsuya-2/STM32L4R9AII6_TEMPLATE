@@ -24,6 +24,7 @@
 #include "sai.h"
 #include "sdmmc.h"
 #include "spi.h"
+#include "tim.h"
 #include "usart.h"
 #include "usb_otg.h"
 #include "gpio.h"
@@ -104,6 +105,8 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
+  MX_TIM16_Init();
+  MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -178,6 +181,7 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void OnTimerCallback(TIM_TypeDef* timInstance);
 
 /* USER CODE END 4 */
 
@@ -199,7 +203,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
-
+  else
+  {
+    OnTimerCallback(htim->Instance);
+  }
   /* USER CODE END Callback 1 */
 }
 
@@ -214,6 +221,8 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
+    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+    vTaskDelay(pdMS_TO_TICKS(100));
   }
   /* USER CODE END Error_Handler_Debug */
 }

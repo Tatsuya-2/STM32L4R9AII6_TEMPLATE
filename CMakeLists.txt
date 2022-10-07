@@ -78,6 +78,8 @@ include_directories(
     Drivers/CMSIS/Device/ST/STM32L4xx/Include
     Drivers/CMSIS/Include
     UserApp
+    Bsp
+    Bsp/utils
 )
 
 # sources
@@ -91,6 +93,7 @@ file(GLOB C_SRCS
     Core/Src/sai.c
     Core/Src/sdmmc.c
     Core/Src/spi.c
+    Core/Src/tim.c
     Core/Src/usart.c
     Core/Src/usb_otg.c
     Core/Src/stm32l4xx_it.c
@@ -141,6 +144,7 @@ file(GLOB C_SRCS
 )
 file(GLOB_RECURSE CPP_SRCS
     "UserApp/*.*"
+    "Bsp/*.*"
 )
 file(GLOB ASM_SRCS
     startup_stm32l4r9xx.s

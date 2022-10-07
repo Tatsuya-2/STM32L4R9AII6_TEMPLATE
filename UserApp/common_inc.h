@@ -21,6 +21,7 @@ void Main(void);
 
 /*---------------------------- C++ Scope ---------------------------*/
 #include "string"
+#include "timer.hpp"
 
 #endif
 #endif  // STM32L4_COMMON_INC_H
