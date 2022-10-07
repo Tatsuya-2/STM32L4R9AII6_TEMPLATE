@@ -70,16 +70,25 @@ add_definitions(-DUSB_SERIAL_BAUD=1000000)
 # includes
 include_directories(
     Core/Inc
+    USB_DEVICE/App
+    USB_DEVICE/Target
     Drivers/STM32L4xx_HAL_Driver/Inc
     Drivers/STM32L4xx_HAL_Driver/Inc/Legacy
     Middlewares/Third_Party/FreeRTOS/Source/include
     Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
     Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
+    Middlewares/ST/STM32_USB_Device_Library/Core/Inc
+    Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
     Drivers/CMSIS/Device/ST/STM32L4xx/Include
     Drivers/CMSIS/Include
-    UserApp
+    3rdParty/fibre/cpp/include
+    3rdParty/fibre/cpp/include/fibre
     Bsp
+    Bsp/communication
     Bsp/utils
+    Bsp/utils/arm_math
+    UserApp
+    UserApp/Protocols
 )
 
 # sources
@@ -95,11 +104,16 @@ file(GLOB C_SRCS
     Core/Src/spi.c
     Core/Src/tim.c
     Core/Src/usart.c
-    Core/Src/usb_otg.c
     Core/Src/stm32l4xx_it.c
     Core/Src/stm32l4xx_hal_msp.c
     Core/Src/stm32l4xx_hal_timebase_tim.c
-    Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_fmc.c
+    USB_DEVICE/App/usb_device.c
+    USB_DEVICE/App/usbd_desc.c
+    USB_DEVICE/App/usbd_cdc_if.c
+    USB_DEVICE/Target/usbd_conf.c
+    Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pcd.c
+    Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pcd_ex.c
+    Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_usb.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c
@@ -115,6 +129,7 @@ file(GLOB C_SRCS
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr_ex.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_exti.c
+    Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_fmc.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_sram.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_sai.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_sai_ex.c
@@ -127,9 +142,6 @@ file(GLOB C_SRCS
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim_ex.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.c
-    Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pcd.c
-    Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pcd_ex.c
-    Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_usb.c
     Core/Src/system_stm32l4xx.c
     Middlewares/Third_Party/FreeRTOS/Source/croutine.c
     Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
@@ -141,10 +153,15 @@ file(GLOB C_SRCS
     Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c
     Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
     Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c
+    Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c
+    Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
+    Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
+    Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
 )
 file(GLOB_RECURSE CPP_SRCS
     "UserApp/*.*"
     "Bsp/*.*"
+    "3rdParty/fibre/*.*"
 )
 file(GLOB ASM_SRCS
     startup_stm32l4r9xx.s

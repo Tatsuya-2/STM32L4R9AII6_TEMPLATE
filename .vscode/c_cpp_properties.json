@@ -13,8 +13,16 @@
                 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2",
                 "Middlewares/Third_Party/FreeRTOS/Source/include",
                 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F",
+                "Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc",
+                "Middlewares/ST/STM32_USB_Device_Library/Core/Inc",
+                "USB_DEVICE/App",
+                "USB_DEVICE/Target",
                 "UserApp/**",
-                "Bsp/utils"
+                "UserApp/Protocols/**",
+                "3rdParty/**",
+                "3rdParty/fibre/cpp/include/fibre",
+                "Bsp/communication",
+                "Bsp/utils/arm_math"
             ],
             "defines": [
                 "STM32L4R9xx",

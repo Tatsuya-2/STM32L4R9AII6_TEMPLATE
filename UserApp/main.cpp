@@ -2,13 +2,10 @@
 #include <cstdio>
 
 /* User Variables ---------------------------------------------------------*/
+BoardConfig_t boardConfig;
 
 //! User-Timers
 Timer timerHeartBeat(&htim16, 2);
-
-//! Debug LED LD3
-
-//! Robot instance
 
 /* Thread Definitions -----------------------------------------------------*/
 
@@ -31,6 +28,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 /* Default Entry -------------------------------------------------------*/
 void Main(void)
 {
+  // Init all communication staff, include USB-CDC/VCP/UART/CAN etc.
+  InitCommunication();
+
   // Start Timer Callbacks.
   timerHeartBeat.SetCallback(timerHeartBeatCallback);
   timerHeartBeat.Start();
