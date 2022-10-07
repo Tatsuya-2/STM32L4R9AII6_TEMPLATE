@@ -21,6 +21,7 @@ extern osThreadId_t usbServerTaskHandle;   // Usage: 512 * 4 Bytes stack
 extern osThreadId_t uartServerTaskHandle;  // Usage: 1000 * 4 Bytes stack
 
 /*---------------------------------- User Tasks --------------------------------------*/
+extern osThreadId_t controlLoopTaskHandle;  // Usage: 500 * 4 Bytes stack
 
 /*---------------- 24.1K (used) / 64K (for FreeRTOS) / 128K (total) ------------------*/
 

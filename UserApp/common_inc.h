@@ -18,6 +18,9 @@ extern "C" {
 
 void Main(void);
 
+extern uint64_t serialNumber;
+extern char serialNumberStr[13];
+
 #ifdef __cplusplus
 }
 
@@ -25,6 +28,7 @@ void Main(void);
 #include "string"
 #include "communication.hpp"
 #include "timer.hpp"
+#include "robot.hpp"
 
 // Universal Board Configs definition
 struct BoardConfig_t

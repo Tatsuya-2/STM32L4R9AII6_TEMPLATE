@@ -19,6 +19,7 @@
                 "USB_DEVICE/Target",
                 "UserApp/**",
                 "UserApp/Protocols/**",
+                "Robot/Instances/inc",
                 "3rdParty/**",
                 "3rdParty/fibre/cpp/include/fibre",
                 "Bsp/communication",
