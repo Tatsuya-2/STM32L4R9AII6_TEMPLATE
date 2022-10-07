@@ -77,6 +77,7 @@ include_directories(
     Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
     Drivers/CMSIS/Device/ST/STM32L4xx/Include
     Drivers/CMSIS/Include
+    UserApp
 )
 
 # sources
@@ -139,6 +140,7 @@ file(GLOB C_SRCS
     Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c
 )
 file(GLOB_RECURSE CPP_SRCS
+    "UserApp/*.*"
 )
 file(GLOB ASM_SRCS
     startup_stm32l4r9xx.s

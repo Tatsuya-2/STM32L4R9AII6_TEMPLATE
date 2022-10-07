@@ -25,6 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "common_inc.h"
 
 /* USER CODE END Includes */
 
@@ -74,6 +75,12 @@ void vApplicationStackOverflowHook(xTaskHandle xTask, signed char* pcTaskName)
   /* Run time stack overflow checking is performed if
   configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2. This hook function is
   called if a stack overflow is detected. */
+  printf("!!!StackOverflowHook!!!\n");
+  for (;;)
+  {
+    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+    vTaskDelay(pdMS_TO_TICKS(200));
+  }
 }
 /* USER CODE END 4 */
 
@@ -90,6 +97,12 @@ void vApplicationMallocFailedHook(void)
   FreeRTOSConfig.h, and the xPortGetFreeHeapSize() API function can be used
   to query the size of free heap space that remains (although it does not
   provide information on how the remaining heap might be fragmented). */
+  printf("!!!MallocFailedHook!!!\n");
+  for (;;)
+  {
+    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+    vTaskDelay(pdMS_TO_TICKS(100));
+  }
 }
 /* USER CODE END 5 */
 
@@ -143,11 +156,11 @@ void MX_FREERTOS_Init(void)
 void StartDefaultTask(void* argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
-  /* Infinite loop */
-  for (;;)
-  {
-    osDelay(1);
-  }
+
+  // Invoke cpp-version main().
+  Main();
+  vTaskDelete(defaultTaskHandle);
+
   /* USER CODE END StartDefaultTask */
 }
 
