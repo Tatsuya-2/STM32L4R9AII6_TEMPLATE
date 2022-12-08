@@ -101,7 +101,6 @@ file(GLOB C_SRCS
     Core/Src/fmc.c
     Core/Src/i2c.c
     Core/Src/sai.c
-    Core/Src/sdmmc.c
     Core/Src/spi.c
     Core/Src/tim.c
     Core/Src/usart.c
@@ -134,9 +133,6 @@ file(GLOB C_SRCS
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_sram.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_sai.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_sai_ex.c
-    Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_sdmmc.c
-    Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_sd.c
-    Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_sd_ex.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_spi.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_spi_ex.c
     Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_tim.c

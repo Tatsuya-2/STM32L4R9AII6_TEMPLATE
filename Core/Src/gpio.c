@@ -45,12 +45,18 @@
      PH13   ------> TIM8_CH1N
      PH9   ------> OCTOSPIM_P2_IO4
      PG10   ------> OCTOSPIM_P2_IO7
+     PD2   ------> SDMMC1_CMD
+     PC10   ------> SDMMC1_D2
      PI4   ------> DCMI_D5
+     PC11   ------> SDMMC1_D3
      PI5   ------> DCMI_VSYNC
      PG12   ------> OCTOSPIM_P2_NCS
+     PC12   ------> SDMMC1_CK
+     PC8   ------> SDMMC1_D0
      PG8   ------> I2C3_SDA
      PG7   ------> I2C3_SCL
      PC7   ------> S_DATAIN3DFSDM1
+     PC9   ------> SDMMC1_D1
      PC0   ------> LPUART1_RX
      PC1   ------> LPUART1_TX
      PC2   ------> S_CKOUTDFSDM1
@@ -86,7 +92,7 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOF_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOH, MIC_VDD_Pin | DSI_SPI_USART_CS_Pin | LED1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOH, MIC_VDD_Pin | DSI_SPI_USART_CS_Pin | LED2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(JOY_SEL_GPIO_Port, JOY_SEL_Pin, GPIO_PIN_RESET);
@@ -106,7 +112,7 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PHPin PHPin PHPin */
-  GPIO_InitStruct.Pin = MIC_VDD_Pin | DSI_SPI_USART_CS_Pin | LED1_Pin;
+  GPIO_InitStruct.Pin = MIC_VDD_Pin | DSI_SPI_USART_CS_Pin | LED2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -165,6 +171,23 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.Alternate = GPIO_AF5_OCTOSPIM_P2;
   HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = uSD_CMD_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF12_SDMMC1;
+  HAL_GPIO_Init(uSD_CMD_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PCPin PCPin PCPin PCPin
+                           PCPin */
+  GPIO_InitStruct.Pin = uSD_D2_Pin | uSD_D3_Pin | uSD_CLK_Pin | uSD_D0_Pin | uSD_D1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF12_SDMMC1;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = JOY_SEL_Pin;

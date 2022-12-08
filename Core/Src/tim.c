@@ -21,6 +21,32 @@
 #include "tim.h"
 
 /* USER CODE BEGIN 0 */
+void copy_tim_handle_conf(TIM_HandleTypeDef* _htim, TIM_HandleTypeDef* tim_temp_)
+{
+  tim_temp_->Instance = _htim->Instance;
+  tim_temp_->Init.Prescaler = _htim->Init.Prescaler;
+  tim_temp_->Init.CounterMode = _htim->Init.CounterMode;
+  tim_temp_->Init.Period = _htim->Init.Period;
+  tim_temp_->Init.ClockDivision = _htim->Init.ClockDivision;
+  tim_temp_->Init.AutoReloadPreload = _htim->Init.AutoReloadPreload;
+}
+
+void init_tim_from_temp_conf(TIM_HandleTypeDef* _htim, TIM_HandleTypeDef* tim_temp_)
+{
+  HAL_TIM_Base_DeInit(_htim);
+
+  _htim->Instance = tim_temp_->Instance;
+  _htim->Init.Prescaler = tim_temp_->Init.Prescaler;
+  _htim->Init.CounterMode = tim_temp_->Init.CounterMode;
+  _htim->Init.Period = tim_temp_->Init.Period;
+  _htim->Init.ClockDivision = tim_temp_->Init.ClockDivision;
+  _htim->Init.AutoReloadPreload = tim_temp_->Init.AutoReloadPreload;
+
+  if (HAL_TIM_Base_Init(_htim) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
 
 /* USER CODE END 0 */
 
@@ -35,12 +61,14 @@ void MX_TIM16_Init(void)
   /* USER CODE END TIM16_Init 0 */
 
   /* USER CODE BEGIN TIM16_Init 1 */
+  TIM_HandleTypeDef tim_temp_;
+  copy_tim_handle_conf(&htim16, &tim_temp_);
 
   /* USER CODE END TIM16_Init 1 */
   htim16.Instance = TIM16;
-  htim16.Init.Prescaler = 0;
+  htim16.Init.Prescaler = 119;
   htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim16.Init.Period = 65535;
+  htim16.Init.Period = 9999;
   htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim16.Init.RepetitionCounter = 0;
   htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
@@ -49,6 +77,7 @@ void MX_TIM16_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN TIM16_Init 2 */
+  init_tim_from_temp_conf(&htim16, &tim_temp_);
 
   /* USER CODE END TIM16_Init 2 */
 }
@@ -60,12 +89,14 @@ void MX_TIM17_Init(void)
   /* USER CODE END TIM17_Init 0 */
 
   /* USER CODE BEGIN TIM17_Init 1 */
+  TIM_HandleTypeDef tim_temp_;
+  copy_tim_handle_conf(&htim17, &tim_temp_);
 
   /* USER CODE END TIM17_Init 1 */
   htim17.Instance = TIM17;
-  htim17.Init.Prescaler = 0;
+  htim17.Init.Prescaler = 119;
   htim17.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim17.Init.Period = 65535;
+  htim17.Init.Period = 9999;
   htim17.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim17.Init.RepetitionCounter = 0;
   htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
@@ -74,6 +105,7 @@ void MX_TIM17_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN TIM17_Init 2 */
+  init_tim_from_temp_conf(&htim17, &tim_temp_);
 
   /* USER CODE END TIM17_Init 2 */
 }

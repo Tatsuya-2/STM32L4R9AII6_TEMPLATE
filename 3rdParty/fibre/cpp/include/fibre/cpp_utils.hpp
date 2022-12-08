@@ -147,13 +147,13 @@ M get_member_type(M T::*);
 
 #define GET_TYPE_OF(mem) decltype(get_member_type(mem))
 
-//#include <type_traits>
-// @brief Statically asserts that T is derived from type BaseType
+// #include <type_traits>
+//  @brief Statically asserts that T is derived from type BaseType
 #define EXPECT_TYPE(T, BaseType)                                                                                       \
   static_assert(std::is_base_of<BaseType, typename std::decay<T>::type>::value ||                                      \
                     std::is_convertible<typename std::decay<T>::type, BaseType>::value,                                \
                 "expected template argument of type " #BaseType)
-//#define EXPECT_TYPE(T, BaseType) static_assert(, "expected template argument of type " #BaseType)
+// #define EXPECT_TYPE(T, BaseType) static_assert(, "expected template argument of type " #BaseType)
 
 template <typename TObj, typename TRet, typename... TArgs>
 class function_traits

@@ -1,6 +1,6 @@
 #include "timer.hpp"
 
-static TimerCallback_t timerCallbacks[2];
+static TimerCallback_t timerCallbacks[4];
 
 Timer::Timer(TIM_HandleTypeDef* _htim, uint32_t _freqHz)
 {
@@ -53,10 +53,10 @@ void Timer::CalcRegister(uint32_t _freq)
   do
   {
     psc *= 2.0;
-    arr = 6000000.0f / psc / (float)_freq;
+    arr = 60000000.0f / psc / (float)_freq;
   } while (arr > 65535);
 
-  if (htim->Instance == TIM16 || htim->Instance == TIM17)  // APB1 & APB2 @120MHz
+  if (htim->Instance == TIM16 || htim->Instance == TIM17)  // APB2 @192MHz
   {
     PSC = (uint16_t)round((double)psc) * 2;
     ARR = (uint16_t)(60000000.0f / (float)_freq / psc);

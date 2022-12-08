@@ -233,8 +233,8 @@ void Error_Handler(void);
 #define D5_GPIO_Port GPIOE
 #define D11_Pin GPIO_PIN_14
 #define D11_GPIO_Port GPIOE
-#define LED1_Pin GPIO_PIN_4
-#define LED1_GPIO_Port GPIOH
+#define LED2_Pin GPIO_PIN_4
+#define LED2_GPIO_Port GPIOH
 #define D14_Pin GPIO_PIN_9
 #define D14_GPIO_Port GPIOD
 #define D13_Pin GPIO_PIN_8

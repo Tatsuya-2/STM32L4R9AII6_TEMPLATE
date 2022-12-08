@@ -17,7 +17,7 @@ see protocol.md for the protocol specification
 #include <cstdio>
 
 // Note that this option cannot be used to debug UART because it prints on UART
-//#define DEBUG_FIBRE
+// #define DEBUG_FIBRE
 #ifdef DEBUG_FIBRE
 #define LOG_FIBRE(...)                                                                                                 \
   do                                                                                                                   \

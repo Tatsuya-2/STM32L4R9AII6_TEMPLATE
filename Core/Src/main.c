@@ -22,7 +22,6 @@
 #include "dma.h"
 #include "i2c.h"
 #include "sai.h"
-#include "sdmmc.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
@@ -52,6 +51,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+uint64_t serialNumber;
+char serialNumberStr[13];
 
 /* USER CODE END PV */
 
@@ -74,6 +75,22 @@ void MX_FREERTOS_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+  // This procedure of building a USB serial number should be identical
+  // to the way the STM's built-in USB bootloader does it. This means
+  // that the device will have the same serial number in normal and DFU mode.
+  uint32_t uuid0 = *(uint32_t*)(UID_BASE + 0);
+  uint32_t uuid1 = *(uint32_t*)(UID_BASE + 4);
+  uint32_t uuid2 = *(uint32_t*)(UID_BASE + 8);
+  uint32_t uuid_mixed_part = uuid0 + uuid2;
+  serialNumber = ((uint64_t)uuid_mixed_part << 16) | (uint64_t)(uuid1 >> 16);
+
+  uint64_t val = serialNumber;
+  for (size_t i = 0; i < 12; ++i)
+  {
+    serialNumberStr[i] = "0123456789ABCDEF"[(val >> (48 - 4)) & 0xf];
+    val <<= 4;
+  }
+  serialNumberStr[12] = 0;
 
   /* USER CODE END 1 */
 
@@ -98,14 +115,13 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_FMC_Init();
-  MX_I2C1_Init();
   MX_SAI1_Init();
-  MX_SDMMC1_SD_Init();
   MX_SPI2_Init();
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   MX_TIM16_Init();
   MX_TIM17_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -220,7 +236,7 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
-    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+    HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
     vTaskDelay(pdMS_TO_TICKS(100));
   }
   /* USER CODE END Error_Handler_Debug */

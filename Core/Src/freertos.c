@@ -46,6 +46,12 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
+// List of semaphores
+osSemaphoreId sem_usb_irq;
+osSemaphoreId sem_uart2_dma;
+osSemaphoreId sem_uart3_dma;
+osSemaphoreId sem_usb_rx;
+osSemaphoreId sem_usb_tx;
 
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -79,7 +85,7 @@ void vApplicationStackOverflowHook(xTaskHandle xTask, signed char* pcTaskName)
   printf("!!!StackOverflowHook!!!\n");
   for (;;)
   {
-    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+    HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
     vTaskDelay(pdMS_TO_TICKS(200));
   }
 }
@@ -101,7 +107,7 @@ void vApplicationMallocFailedHook(void)
   printf("!!!MallocFailedHook!!!\n");
   for (;;)
   {
-    HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+    HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
     vTaskDelay(pdMS_TO_TICKS(100));
   }
 }
@@ -123,7 +129,24 @@ void MX_FREERTOS_Init(void)
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
-  /* add semaphores, ... */
+  // Init usb irq binary semaphore, and start with no tokens by removing the starting one.
+  osSemaphoreDef(sem_usb_irq);
+  sem_usb_irq = osSemaphoreNew(1, 0, osSemaphore(sem_usb_irq));
+
+  // Create a semaphore for UART DMA and remove a token
+  osSemaphoreDef(sem_uart2_dma);
+  sem_uart2_dma = osSemaphoreNew(1, 1, osSemaphore(sem_uart2_dma));
+  osSemaphoreDef(sem_uart3_dma);
+  sem_uart3_dma = osSemaphoreNew(1, 1, osSemaphore(sem_uart3_dma));
+
+  // Create a semaphore for USB RX, and start with no tokens by removing the starting one.
+  osSemaphoreDef(sem_usb_rx);
+  sem_usb_rx = osSemaphoreNew(1, 0, osSemaphore(sem_usb_rx));
+
+  // Create a semaphore for USB TX
+  osSemaphoreDef(sem_usb_tx);
+  sem_usb_tx = osSemaphoreNew(1, 1, osSemaphore(sem_usb_tx));
+
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
